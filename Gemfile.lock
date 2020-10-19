@@ -58,6 +58,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    as_json_representations (0.6.0)
     ast (2.4.1)
     bootsnap (1.4.8)
       msgpack (~> 1.0)
@@ -215,6 +216,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  as_json_representations
   bootsnap (>= 1.4.2)
   byebug
   capybara
