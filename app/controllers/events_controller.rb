@@ -1,8 +1,12 @@
 class EventsController < ApplicationController
   def show
-    interactor = EventInteractor.new
+    interactor = FindEventInteractor.new
 
     render_show interactor.get_month_events(params_show[:id])
+  end
+
+  def create
+
   end
 
   def params_show

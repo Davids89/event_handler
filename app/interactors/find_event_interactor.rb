@@ -1,4 +1,4 @@
-class EventInteractor
+class FindEventInteractor
   def get_month_events(month)
     repository = EventRepository.new
 
