@@ -1,5 +1,5 @@
-module EventRepository
-  def all_events
+class EventRepository
+  def find_all
     Event.all
   end
 end
