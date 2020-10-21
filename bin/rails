@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 begin
+  # rubocop:disable Style/ExpandPathArguments
   load File.expand_path('../spring', __FILE__)
+  # rubocop:enable Style/ExpandPathArguments
 rescue LoadError => e
   raise unless e.message.include?('spring')
 end

@@ -1,8 +1,6 @@
 env:
   RUBY_VERSION: 2.6.3
-  POSTGRES_USER: "postgres"
-  POSTGRES_PASSWORD: "postgres"
-  POSTGRES_DB: "postgres"
+
 name: Rails tests
 on: [push, pull_request]
 jobs:
@@ -19,6 +17,18 @@ jobs:
       - name: Check code
         run: rubocop
   rspec-test:
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     name: RSpec
     # needs: rubocop-test
     runs-on: ubuntu-latest
@@ -33,9 +43,10 @@ jobs:
         run: |
           gem install bundler
           bundle install
-      - name: Create database
-        run: |
-          bundle exec rails db:create RAILS_ENV=test
-          bundle exec rails db:migrate RAILS_ENV=test
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://postgres:postgres@postgres:${{ job.services.postgres.ports[5432] }}/postgres?sslmode=disable
+        run: rails db:create db:migrate
       - name: Run tests
         run: bundle exec rspec
