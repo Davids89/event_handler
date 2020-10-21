@@ -17,8 +17,24 @@ class EventsController < ApplicationController
     end
   end
 
+  def update
+    interactor = UpdateEventInteractor.new
+
+    event = interactor.update(params[:id], update_params)
+
+    if event.valid?
+      render_update event
+    else
+      render_errors event
+    end
+  end
+
   def show_params
     params.permit(:id)
+  end
+
+  def update_params
+    create_params
   end
 
   def create_params

@@ -90,4 +90,64 @@ RSpec.describe EventsController, type: :controller do
       end
     end
   end
+
+  describe 'PUT #update' do
+    let(:event_to_update) { create :event }
+
+    context 'when the user send correct params' do
+      let(:params) do
+        {
+          title: 'New title',
+          description: event_to_update.description,
+          start_date: event_to_update.start_date,
+          end_date: event_to_update.end_date
+        }
+      end
+
+      before { put :update, params: {id: event_to_update.id, data: params} }
+
+      it 'returns 200 http status code' do
+        expect(response).to have_http_status 200
+      end
+
+      it 'change the title correctly' do
+        expect(data.title).to eq params[:title]
+      end
+
+      it 'does not change the rest of params' do
+        expect(data.description).to eq event_to_update.description
+        expect(data.start_date).to eq event_to_update.start_date.strftime('%d/%m/%Y')
+        expect(data.end_date).to eq event_to_update.end_date.strftime('%d/%m/%Y')
+      end
+    end
+
+    context 'when the user send incorrect params' do
+      let(:params) do
+        {
+          start_date: Time.zone.now,
+          end_date: Time.zone.now - 1.hour
+        }
+      end
+
+      before { put :update, params: {id: event_to_update.id, data: params} }
+
+      it 'returns 422 http status code' do
+        expect(response).to have_http_status 422
+      end
+    end
+
+    context 'when the user send no params' do
+      let(:params) do
+        {
+          title: ''
+        }
+      end
+
+      before { put :update, params: {id: event_to_update.id, data: params} }
+
+      it 'returns 422 http status code' do
+        expect(response).to have_http_status 422
+      end
+    end
+  end
 end
