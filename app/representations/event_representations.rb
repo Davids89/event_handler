@@ -5,8 +5,8 @@ module EventRepresentations
     {
       title: title,
       description: description,
-      start_date: start_date,
-      end_date: end_date
+      start_date: start_date.strftime('%d/%m/%Y'),
+      end_date: end_date.strftime('%d/%m/%Y')
     }
   end
 end

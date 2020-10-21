@@ -27,4 +27,67 @@ RSpec.describe EventsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #create' do
+    context 'when the event has correct params' do
+      let(:params) do
+        {
+          title: 'Event',
+          description: 'Description',
+          start_date: Time.zone.tomorrow.beginning_of_day,
+          end_date: Time.zone.tomorrow.end_of_day
+        }
+      end
+
+      before { post :create, params: {data: params} }
+
+      it 'returns 200 https status code' do
+        expect(response).to have_http_status 200
+      end
+
+      it 'returns the correct event values' do
+        expect(data.title).to eq params[:title]
+        expect(data.description).to eq params[:description]
+        expect(data.start_date).to eq params[:start_date].strftime('%d/%m/%Y')
+        expect(data.end_date).to eq params[:end_date].strftime('%d/%m/%Y')
+      end
+    end
+
+    context 'when the event has incorrect params' do
+      let(:params) do
+        {
+          title: 'Event',
+          description: 'Description',
+          start_date: Time.zone.tomorrow.beginning_of_day,
+          end_date: Time.zone.today.beginning_of_day
+        }
+      end
+
+      before { post :create, params: {data: params} }
+
+      it 'returns 422 http status code' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'returns correct error message' do
+        expect(errors[:end_date]).to include(
+          {error: 'after', restriction: params[:start_date].strftime('%Y-%m-%d %H:%M:%S')}
+        )
+      end
+    end
+
+    context 'when no params are sent' do
+      let(:params) do
+        {
+          title: ''
+        }
+      end
+
+      before { post :create, params: {data: params} }
+
+      it 'returns 422 http status code' do
+        expect(response).to have_http_status 422
+      end
+    end
+  end
 end
