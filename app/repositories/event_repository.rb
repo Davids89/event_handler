@@ -8,11 +8,17 @@ class EventRepository
   end
 
   def update_event(event_id, params)
-    event = find_by(event_id)
+    event = find_by event_id
 
     event.update(params)
 
     event
+  end
+
+  def destroy_event(event_id)
+    event = find_by event_id
+
+    event.destroy
   end
 
   def find_by(event_id)

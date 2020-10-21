@@ -11,6 +11,14 @@ class ApplicationController < ActionController::API
     render_item item, representation, 200
   end
 
+  def render_destroy
+    render_204
+  end
+
+  def render_204
+    head 204
+  end
+
   def render_errors(item)
     render json: {errors: item.errors.details}, status: 422
   end

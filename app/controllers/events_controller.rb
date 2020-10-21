@@ -29,6 +29,14 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    interactor = DeleteEventInteractor.new
+
+    interactor.destroy params[:id]
+
+    render_destroy
+  end
+
   def show_params
     params.permit(:id)
   end

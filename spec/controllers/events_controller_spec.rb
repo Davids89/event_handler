@@ -150,4 +150,22 @@ RSpec.describe EventsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:event_to_destroy) { create :event }
+
+    context 'when the event has to be destroyed' do
+      it 'returns 204 http status code' do
+        delete :destroy, params: {id: event_to_destroy}
+
+        expect(response).to have_http_status 204
+      end
+
+      it 'delete the resource correctly' do
+        expect {
+          delete :destroy, params: {id: event_to_destroy}
+        }.to change(Event, :count).by(-1)
+      end
+    end
+  end
 end
