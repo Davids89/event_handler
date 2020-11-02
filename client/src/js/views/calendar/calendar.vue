@@ -22,6 +22,8 @@
         </div>
       </template>
     </vue-event-calendar>
+
+    <button @click="goToCreateEvent">Create Event</button>
   </div>
 </template>
 
@@ -33,6 +35,7 @@ import eventsService from '../../services/eventsService'
 export default {
   data() {
     return {
+      currentMonth: moment().month() + 1, // moment starts months in 0 (January)
       monthEvents: []
     }
   },
@@ -43,7 +46,7 @@ export default {
 
   methods: {
     async getEvents() {
-      const events = await eventsService.show(10)
+      const events = await eventsService.show(this.currentMonth)
 
       events.forEach(event => {
       const eventDate = moment(event.start_date).format('YYYY/MM/DD')
@@ -63,10 +66,14 @@ export default {
     })
     },
 
-    deleteEvent(id) {
-      eventsService.delete(id).then(() => {
-        this.monthEvents = this.monthEvents.filter(event => event.id !== id)
-      })
+    async deleteEvent(id) {
+      await eventsService.delete(id)
+
+      this.monthEvents = this.monthEvents.filter(event => event.id !== id)
+    },
+
+    goToCreateEvent() {
+      this.$router.push({name: 'EventNew'})
     }
   }
 }
