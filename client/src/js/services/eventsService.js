@@ -6,5 +6,11 @@ export default {
     const response = await Vue.http.get(`${path}/${id}`)
 
     return response.data.data
+  },
+
+  async delete(id) {
+    const response = await Vue.http.delete(`${path}/${id}`)
+
+    return response.data
   }
 }

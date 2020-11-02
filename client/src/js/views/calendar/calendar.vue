@@ -18,7 +18,7 @@
             {{ event.description }}
           </div>
 
-          <button>Delete</button>
+          <button @click="deleteEvent(event.id)">Delete</button>
         </div>
       </template>
     </vue-event-calendar>
@@ -52,15 +52,22 @@ export default {
 
       const params = {
         date: eventDate,
-        startDate: eventStartDate,
-        endDate: eventEndDate,
         description: event.description,
+        endDate: eventEndDate,
+        id: event.id,
+        startDate: eventStartDate,
         title: event.title
       }
 
       this.monthEvents.push(params)
     })
     },
+
+    deleteEvent(id) {
+      eventsService.delete(id).then(() => {
+        this.monthEvents = this.monthEvents.filter(event => event.id !== id)
+      })
+    }
   }
 }
 
