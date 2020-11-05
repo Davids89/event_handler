@@ -48,8 +48,8 @@ RSpec.describe EventsController, type: :controller do
       it 'returns the correct event values' do
         expect(data.title).to eq params[:title]
         expect(data.description).to eq params[:description]
-        expect(data.start_date).to eq params[:start_date].strftime('%d/%m/%Y')
-        expect(data.end_date).to eq params[:end_date].strftime('%d/%m/%Y')
+        expect(data.start_date).to eq params[:start_date].strftime('%Y-%m-%d')
+        expect(data.end_date).to eq params[:end_date].strftime('%Y-%m-%d')
       end
     end
 
@@ -116,8 +116,8 @@ RSpec.describe EventsController, type: :controller do
 
       it 'does not change the rest of params' do
         expect(data.description).to eq event_to_update.description
-        expect(data.start_date).to eq event_to_update.start_date.strftime('%d/%m/%Y')
-        expect(data.end_date).to eq event_to_update.end_date.strftime('%d/%m/%Y')
+        expect(data.start_date).to eq event_to_update.start_date.strftime('%Y-%m-%d')
+        expect(data.end_date).to eq event_to_update.end_date.strftime('%Y-%m-%d')
       end
     end
 
