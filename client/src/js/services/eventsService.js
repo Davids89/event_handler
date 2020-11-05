@@ -10,12 +10,25 @@ export default {
 
   async create(data) {
     try {
-      console.log(data)
       const response = await Vue.http.post(path, {data})
 
       return response.data.data
     } catch (e) {
       if (e.status === 422) {
+        throw e.data.errors
+      }
+
+      throw e
+    }
+  },
+
+  async update(data, id) {
+    try {
+      const response = await Vue.http.put(`${path}/${id}`, {data})
+
+      return response.data.data
+    } catch (e) {
+      if (e.status = 422) {
         throw e.data.errors
       }
 
