@@ -71,7 +71,7 @@ RSpec.describe EventsController, type: :controller do
 
       it 'returns correct error message' do
         expect(errors[:end_date]).to include(
-          {error: 'after', restriction: params[:start_date].strftime('%Y-%m-%d %H:%M:%S')}
+          {error: 'on_or_after', restriction: params[:start_date].strftime('%Y-%m-%d %H:%M:%S')}
         )
       end
     end

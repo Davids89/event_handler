@@ -1,8 +1,9 @@
+# .github/workflows/ci.yml
 env:
   RUBY_VERSION: 2.6.3
 
-name: Rails tests
-on: [push, pull_request]
+name: CI
+on: [pull_request, push]
 jobs:
   rubocop-test:
     name: Rubocop
@@ -17,36 +18,48 @@ jobs:
       - name: Check code
         run: rubocop
   rspec-test:
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:11
+        ports:
+          - 5432:5432
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        ports: ["5432:5432"]
-        options: >-
+        options:
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-    name: RSpec
-    # needs: rubocop-test
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-      - name: Install postgres client
+          ruby-version: ${{env.RUBY_VERSION}}
+
+      - name: Install dependent libraries
         run: sudo apt-get install libpq-dev
-      - name: Install dependencies
+
+      - name: Bundle install
         run: |
           gem install bundler
-          bundle install
-      - name: Setup test database
+          bundle install --jobs 4 --retry 3
+
+      - name: Setup Database
+        run: |
+          cp config/ci-database.yml config/database.yml
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@postgres:${{ job.services.postgres.ports[5432] }}/postgres?sslmode=disable
-        run: rails db:create db:migrate
-      - name: Run tests
-        run: bundle exec rspec
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+      - name: Run RSpec
+        run: COVERAGE=true bundle exec rspec  --require rails_helper
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
