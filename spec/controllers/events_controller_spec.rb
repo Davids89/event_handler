@@ -1,3 +1,5 @@
+# rubocop:disable Style/FrozenStringLiteralComment
+# rubocop:disable Metrics/BlockLength
 require 'rails_helper'
 
 RSpec.describe EventsController, type: :controller do
@@ -11,7 +13,7 @@ RSpec.describe EventsController, type: :controller do
     let(:month) { Time.zone.now.month }
 
     context 'when the events are requested' do
-      before { get :show, params: {id: month} }
+      before { get :show, params: { id: month } }
 
       it 'returns only one event' do
         expect(data.size).to eq 1
@@ -39,7 +41,7 @@ RSpec.describe EventsController, type: :controller do
         }
       end
 
-      before { post :create, params: {data: params} }
+      before { post :create, params: { data: params } }
 
       it 'returns 200 https status code' do
         expect(response).to have_http_status 200
@@ -63,7 +65,7 @@ RSpec.describe EventsController, type: :controller do
         }
       end
 
-      before { post :create, params: {data: params} }
+      before { post :create, params: { data: params } }
 
       it 'returns 422 http status code' do
         expect(response).to have_http_status 422
@@ -71,7 +73,7 @@ RSpec.describe EventsController, type: :controller do
 
       it 'returns correct error message' do
         expect(errors[:end_date]).to include(
-          {error: 'on_or_after', restriction: params[:start_date].strftime('%Y-%m-%d %H:%M:%S')}
+          { error: 'on_or_after', restriction: params[:start_date].strftime('%Y-%m-%d %H:%M:%S') }
         )
       end
     end
@@ -83,7 +85,7 @@ RSpec.describe EventsController, type: :controller do
         }
       end
 
-      before { post :create, params: {data: params} }
+      before { post :create, params: { data: params } }
 
       it 'returns 422 http status code' do
         expect(response).to have_http_status 422
@@ -104,7 +106,7 @@ RSpec.describe EventsController, type: :controller do
         }
       end
 
-      before { put :update, params: {id: event_to_update.id, data: params} }
+      before { put :update, params: { id: event_to_update.id, data: params } }
 
       it 'returns 200 http status code' do
         expect(response).to have_http_status 200
@@ -129,7 +131,7 @@ RSpec.describe EventsController, type: :controller do
         }
       end
 
-      before { put :update, params: {id: event_to_update.id, data: params} }
+      before { put :update, params: { id: event_to_update.id, data: params } }
 
       it 'returns 422 http status code' do
         expect(response).to have_http_status 422
@@ -143,7 +145,7 @@ RSpec.describe EventsController, type: :controller do
         }
       end
 
-      before { put :update, params: {id: event_to_update.id, data: params} }
+      before { put :update, params: { id: event_to_update.id, data: params } }
 
       it 'returns 422 http status code' do
         expect(response).to have_http_status 422
@@ -156,16 +158,18 @@ RSpec.describe EventsController, type: :controller do
 
     context 'when the event has to be destroyed' do
       it 'returns 204 http status code' do
-        delete :destroy, params: {id: event_to_destroy}
+        delete :destroy, params: { id: event_to_destroy }
 
         expect(response).to have_http_status 204
       end
 
       it 'delete the resource correctly' do
-        expect {
-          delete :destroy, params: {id: event_to_destroy}
-        }.to change(Event, :count).by(-1)
+        expect do
+          delete :destroy, params: { id: event_to_destroy }
+        end.to change(Event, :count).by(-1)
       end
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
+# rubocop:enable Style/FrozenStringLiteralComment

@@ -1,3 +1,5 @@
+# rubocop:disable Style/FrozenStringLiteralComment
+# rubocop:disable Style/Documentation
 class EventsController < ApplicationController
   def show
     interactor = FindEventInteractor.new
@@ -49,3 +51,5 @@ class EventsController < ApplicationController
     params.require(:data).permit(:title, :description, :start_date, :end_date)
   end
 end
+# rubocop:enable Style/Documentation
+# rubocop:enable Style/FrozenStringLiteralComment

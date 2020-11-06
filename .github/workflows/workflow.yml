@@ -3,7 +3,7 @@ env:
   RUBY_VERSION: 2.6.3
 
 name: CI
-on: [pull_request, push]
+on: [pull_request]
 jobs:
   rubocop-test:
     name: Rubocop
