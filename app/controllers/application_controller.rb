@@ -14,10 +14,10 @@ class ApplicationController < ActionController::API
   end
 
   def render_destroy
-    render_204
+    render204
   end
 
-  def render_204
+  def render204
     head 204
   end
 
