@@ -3,10 +3,11 @@ module EventRepresentations
 
   representation :basic do
     {
+      id: id,
       title: title,
       description: description,
-      start_date: start_date.strftime('%d/%m/%Y'),
-      end_date: end_date.strftime('%d/%m/%Y')
+      start_date: start_date.strftime('%Y-%m-%d'),
+      end_date: end_date.strftime('%Y-%m-%d')
     }
   end
 end
