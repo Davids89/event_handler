@@ -14,6 +14,7 @@
       {{ event.description }}
     </div>
 
+    <button @click="updateEvent()">Update</button>
     <button @click="deleteEvent(event.id)">Delete</button>
   </div>
 </template>
@@ -27,6 +28,10 @@ export default {
   methods: {
     deleteEvent(id) {
       this.$emit('deleteEvent', id)
+    },
+
+    updateEvent() {
+      this.$router.push({name: 'EventUpdate', params: {event: this.event, id: this.event.id}})
     }
   }
 }
