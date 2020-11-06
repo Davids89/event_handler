@@ -1,5 +1,7 @@
+# rubocop:disable Style/FrozenStringLiteralComment
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe Event, type: :model do
   describe 'Fields' do
     it { is_expected.to have_db_column(:title).of_type(:string) }
@@ -21,8 +23,8 @@ RSpec.describe Event, type: :model do
         end
 
         it 'returns error' do
-          expect(event.errors.details[:start_date]).to include({error: :blank})
-          expect(event.errors.details[:end_date]).to include({error: :blank})
+          expect(event.errors.details[:start_date]).to include({ error: :blank })
+          expect(event.errors.details[:end_date]).to include({ error: :blank })
         end
       end
 
@@ -62,9 +64,11 @@ RSpec.describe Event, type: :model do
         end
 
         it 'returns error' do
-          expect(event.errors.details[:title]).to include({error: :blank})
+          expect(event.errors.details[:title]).to include({ error: :blank })
         end
       end
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
+# rubocop:enable Style/FrozenStringLiteralComment

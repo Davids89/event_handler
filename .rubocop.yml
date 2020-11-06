@@ -1,0 +1,17 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - Rakefile
+    - Gemfile
+    - app/channels/application_cable/channel.rb
+    - app/channels/application_cable/connection.rb
+    - app/jobs/application_job.rb
+    - app/mailers/application_mailer.rb
+    - app/models/application_record.rb
+    - bin/bundle
+    - config.ru
+    - config/**/*
+    - db/**/*
+    - bin/**/*
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb

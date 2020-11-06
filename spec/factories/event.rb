@@ -1,3 +1,4 @@
+# rubocop:disable Style/FrozenStringLiteralComment
 FactoryBot.define do
   factory :event do
     title { Faker::Games::Zelda.character }
@@ -6,3 +7,4 @@ FactoryBot.define do
     end_date { Time.zone.now + 1.hour }
   end
 end
+# rubocop:enable Style/FrozenStringLiteralComment

@@ -1,3 +1,5 @@
+# rubocop:disable Style/FrozenStringLiteralComment
+# rubocop:disable Style/Documentation
 module EventRepresentations
   include AsJsonRepresentations
 
@@ -11,3 +13,5 @@ module EventRepresentations
     }
   end
 end
+# rubocop:enable Style/Documentation
+# rubocop:enable Style/FrozenStringLiteralComment
