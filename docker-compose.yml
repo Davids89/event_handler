@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  db:
+  postgres:
     image: postgres
     environment:
       POSTGRES_USER: "postgres"
@@ -14,4 +14,4 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      - postgres
