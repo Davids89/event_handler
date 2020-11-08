@@ -1,5 +1,10 @@
 <template>
   <div>
+    <button
+      class="create-button"
+      @click="goToCreateEvent"
+    >Create Event</button>
+
     <vue-event-calendar :events="monthEvents">
       <template>
         <div v-for="event in monthEvents" class="event-item" :key=event.id>
@@ -10,8 +15,6 @@
         </div>
       </template>
     </vue-event-calendar>
-
-    <button @click="goToCreateEvent">Create Event</button>
   </div>
 </template>
 
@@ -73,3 +76,18 @@ export default {
 }
 
 </script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+
+  body {
+    font-family: 'Nunito Sans';
+  }
+
+  .create-button {
+    background-color: white;
+    height: 3rem;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+  }
+</style>
