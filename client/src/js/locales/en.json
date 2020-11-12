@@ -1,0 +1,20 @@
+{
+  "calendar": {
+    "create": {
+      "button": "Create event",
+      "form": {
+        "eventTitle": {
+          "label": "Event title",
+          "placeholder": "Your event title"
+        },
+        "startDate": "Start date",
+        "endDate": "End date",
+        "description": "Description"
+      }
+    },
+    "event": {
+      "update": "Update",
+      "delete": "Delete"
+    }
+  }
+}

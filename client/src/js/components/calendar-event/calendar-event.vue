@@ -14,8 +14,8 @@
       {{ event.description }}
     </div>
 
-    <button @click="updateEvent()">Update</button>
-    <button @click="deleteEvent(event.id)">Delete</button>
+    <button @click="updateEvent()"> {{ $t('calendar.event.update') }} </button>
+    <button @click="deleteEvent(event.id)"> {{ $t('calendar.event.delete') }} </button>
   </div>
 </template>
 
