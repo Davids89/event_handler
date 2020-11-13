@@ -7,18 +7,17 @@ Things you may want to cover:
 
 * Ruby version
 
-* System dependencies
+This project uses Ruby 2.6.3
 
 * Configuration
- docker run --name my_postgres -e POSTGRES_PASSWORD=eventhandler -d postgres
+  - docker-compouse build
+  - docker-compose up
+  - docker-compose run web bash
 * Database creation
-
+  - rails db:create
+  - rails db:migrate
 * Database initialization
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To launch backend tests `docker-compose run web bundle exec rspec`
