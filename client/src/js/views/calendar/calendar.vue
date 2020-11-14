@@ -8,10 +8,10 @@
     <vue-event-calendar :events="monthEvents">
       <template>
         <div v-for="event in monthEvents" class="event-item" :key=event.id>
-          <calendar-event
+          <!-- <calendar-event
             :event="event"
             @deleteEvent="deleteEvent"
-          />
+          /> -->
         </div>
       </template>
     </vue-event-calendar>
