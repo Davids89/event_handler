@@ -21,3 +21,4 @@ This project uses Ruby 2.6.3
 * How to run the test suite
 
 To launch backend tests `docker-compose run web bundle exec rspec`
+To launch frontend tests `yarn run test`
