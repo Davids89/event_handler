@@ -5,7 +5,7 @@
       @click="goToCreateEvent"
     >Create Event</button>
 
-    <vue-event-calendar :events="monthEvents">
+    <vue-event-calendar :events="monthEvents" @month-changed="monthChanged">
       <template>
         <div v-for="event in monthEvents" class="event-item" :key=event.id>
           <calendar-event
@@ -42,8 +42,16 @@ export default {
   },
 
   methods: {
-    async getEvents() {
-      const events = await eventsService.show(this.currentMonth)
+    async monthChanged(yearMonth) {
+      const month = yearMonth.split('/')[0]
+
+      this.getEvents(month)
+    },
+
+    async getEvents(month = this.currentMonth) {
+      this.monthEvents = []
+
+      const events = await eventsService.show(month)
 
       events.forEach(event => {
       const eventDate = moment(event.start_date).format('YYYY/MM/DD')
