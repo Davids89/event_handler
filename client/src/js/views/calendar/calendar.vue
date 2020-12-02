@@ -3,7 +3,9 @@
     <button
       class="create-button"
       @click="goToCreateEvent"
-    >Create Event</button>
+    >
+      {{ $t('calendar.create.button') }}
+    </button>
 
     <vue-event-calendar :events="monthEvents" @month-changed="monthChanged">
       <template>

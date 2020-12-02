@@ -2,36 +2,36 @@
   <div class="form-view">
     <div class="event-form-wrapper">
       <div class="event-form-item">
-        <span>Event title</span>
+        <span> {{ $t('calendar.create.form.eventTitle.label') }} </span>
         <input
           v-model="event.title"
           type="text"
-          placeholder="Your event title"
+          :placeholder="$t('calendar.create.form.eventTitle.placeholder')"
         >
       </div>
       <div class="event-form-item">
-        <span>Start date</span>
+        <span> {{ $t('calendar.create.form.startDate') }} </span>
         <input
           v-model="event.startDate"
           type="date"
         >
       </div>
       <div class="event-form-item">
-        <span>End date</span>
+        <span> {{ $t('calendar.create.form.endDate') }} </span>
         <input
           v-model="event.endDate"
           type="date"
         >
       </div>
       <div class="event-form-item">
-        <span>Description</span>
+        <span> {{ $t('calendar.create.form.description') }} </span>
         <input
           v-model="event.description"
           type="text"
         >
       </div>
 
-      <button @click="submit">Create event</button>
+      <button @click="submit"> {{$t('calendar.create.button')}} </button>
     </div>
   </div>
 </template>
